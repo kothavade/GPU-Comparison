@@ -1,57 +1,30 @@
 package com.ved.gpucomparisonproject
+//https://stackoverflow.com/questions/16770726/google-custom-search-api-for-square-images
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
-import com.ved.gpucomparisonproject.R.layout.adapter_custom
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ved.gpucomparisonproject.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val n: String = "NVIDIA"
+        val a: String = "AMD"
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val list: MutableList<String> = ArrayList()
-        list.add("bob")
-        list.add("joe")
-        list.add("jane")
-        list.add("john")
-        list.add("john")
-        list.add("john")
-        list.add("john")
-        list.add("john")
-        list.add("john")
-        list.add("john")
 
-        val customAdapter:CustomAdapter = CustomAdapter(this, adapter_custom,list)
-        binding.recyclerView.adapter=customAdapter
-    }
+        binding.recyclerView.layoutManager=LinearLayoutManager(this)
+        val data = ArrayList<Gpu>()
+        data.add(Gpu(R.drawable.rtx3070,n,"RTX 3070", 500, 8,"GDDR6","PCIe 4.0 x16", 448, 1.5, 1.73, 650, "Ampere", true,21934, 13701, 153 ))
+        data.add(Gpu(R.drawable.rtx3070,n,"RTX 3080", 700, 8,"GDDR6","PCIe 4.0 x16", 448, 1.5, 1.73, 650, "Ampere", true,21934, 13701, 153 ))
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-    }
+        val adapter = CustomAdapter(data)
+        binding.recyclerView.adapter=adapter
 
-    class CustomAdapter(private val dataset: MutableList<String>)
-        val list: MutableList<String> = objects
 
-        public override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val inflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(adapter_custom, null)
-            val textView: TextView = view.findViewById(R.id.adapterText)
-            val button: Button = view.findViewById(R.id.adapterButton)
-            textView.text = "Position: $position"
-            button.text = list.get(position)
-            return view
-        }
     }
 }

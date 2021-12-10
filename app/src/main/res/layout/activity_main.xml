@@ -8,8 +8,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="385dp"
-        tools:layout_editor_absoluteY="626dp" />
+        android:layout_width="650dp"
+        android:layout_height="955dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/adapter_custom" />
 </androidx.constraintlayout.widget.ConstraintLayout>
