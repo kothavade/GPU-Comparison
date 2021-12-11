@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_margin="10dp"
-    app:cardElevation="6dp">
+    android:layout_margin="5dp"
+    app:contentPadding="2dp"
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="9dp">
 
         <TextView
             android:id="@+id/adapter_manufacturer"
@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/adapter_name"
-            android:layout_width="141dp"
+            android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="RTX 3070Ti"
