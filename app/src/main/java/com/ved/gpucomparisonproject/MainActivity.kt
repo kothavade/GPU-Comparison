@@ -248,7 +248,7 @@ class MainActivity : AppCompatActivity() {
             fill()
         }
         val adapter = CustomAdapter(data){ Gpu ->
-            binding.memory.text=bold("VRAM", Gpu.memory.toString(), Gpu.vram,).toString()
+            binding.memory.text="VRAM: " + Gpu.memory.toString() + Gpu.vram
             binding.imageView.setImageResource(Gpu.image)
         }
         binding.removeSelected.setOnClickListener {
@@ -278,15 +278,8 @@ class MainActivity : AppCompatActivity() {
         selected=savedInstanceState.getInt(selectedKey)
     }
     fun fill(){
-        binding.memory.text=bold("VRAM", data.get(selected).memory.toString(), data.get(selected).vram,)
+        binding.memory.text="VRAM: " + data.get(selected).toString() + " " + data.get(selected).vram
         binding.imageView.setImageResource(data[selected].image)
-    }
-    fun bold( title:String,  content:String): CharSequence{
-        val s = SpannableStringBuilder()
-            .bold{append(title)}
-            .bold{append(": ")}
-            .append(content)
-        return s
     }
 }
 
