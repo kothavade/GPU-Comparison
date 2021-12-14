@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         var selected: Int = 0
         var data: ArrayList<GPU> = arrayListOf<GPU>()
     }
-    public var alertInput:String = ""
+    var alertInput:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         val n = "NVIDIA"
         val a = "AMD"
@@ -249,12 +249,19 @@ class MainActivity : AppCompatActivity() {
         }
         binding.removeSelected.setOnClickListener {
             var custom = GPU(R.drawable.custom,n,"RTX 3060","330","12","GDDR6","360","1.32","1.77","170","Ampere","Decent value if on a budget.")
-            alert(binding.root.context,"Manufacturer")
+            alert(binding.root.context,"manufacturer")
             custom.manufacturer=alertInput
-
+            alert(binding.root.context,"name")
+            custom.name=alertInput
+            alert(binding.root.context,"price")
+            custom.price=alertInput
+            alert(binding.root.context,"memory")
+            custom.memory=alertInput
+            alert(binding.root.context,"vram")
+            custom.vram=alertInput
+            data.add(custom)
             adapter.notifyDataSetChanged()
             fill()
-
         }
         binding.recyclerView.adapter=adapter
     }
