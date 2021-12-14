@@ -1,15 +1,15 @@
 package com.ved.gpucomparisonproject
 data class GPU(
-    val image: Int,
-    val manufacturer: String,
-    val name: String,
-    val price: Int,
-    val memory: Int,
-    val vram: String,
-    val bandwidth: Int,
-    val baseClock: Double,
-    val boostClock: Double,
-    val tdp: Int,
-    val architecture: String,
-    val review: String){
+    var image: Int,
+    var manufacturer: String,
+    var name: String,
+    var price: String,
+    var memory: String,
+    var vram: String,
+    var bandwidth: String,
+    var baseClock: String,
+    var boostClock: String,
+    var tdp: String,
+    var architecture: String,
+    var review: String){
 }
