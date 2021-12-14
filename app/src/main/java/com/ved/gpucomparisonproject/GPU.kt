@@ -1,7 +1,5 @@
 package com.ved.gpucomparisonproject
-
-
-data class Gpu(
+data class GPU(
     val image: Int,
     val manufacturer: String,
     val name: String,

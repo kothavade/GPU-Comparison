@@ -2,15 +2,12 @@ package com.ved.gpucomparisonproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.util.Log
 import android.util.Log.d
 import android.widget.Toast
-import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ved.gpucomparisonproject.databinding.ActivityMainBinding
 import java.lang.Exception
-import java.lang.IndexOutOfBoundsException
+import java.lang.Integer.min
 
 private lateinit var binding: ActivityMainBinding
 
@@ -19,26 +16,18 @@ class MainActivity : AppCompatActivity() {
         const val selectedKey:String = "yo"
         const val savedDataKey:String = "yo1"
         var selected: Int = 0
-        var data: ArrayList<Gpu> = arrayListOf<Gpu>()
+        var data: ArrayList<GPU> = arrayListOf<GPU>()
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val n: String = "NVIDIA"
-        val a: String = "AMD"
-
+        val n = "NVIDIA"
+        val a = "AMD"
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.recyclerView.layoutManager=LinearLayoutManager(this)
-
-        if(savedInstanceState!=null){
-            selected = savedInstanceState.getInt(selectedKey)
-            fill()
-        }
-        else {
+        if(savedInstanceState==null) {
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3060,
                     n,
                     "RTX 3060",
@@ -54,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6600,
                     a,
                     "RX 6600",
@@ -70,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6600xt,
                     a,
                     "RX 6600 XT",
@@ -86,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3060ti,
                     n,
                     "RTX 3060 Ti",
@@ -102,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6700xt,
                     a,
                     "RX 6700 XT",
@@ -118,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3070,
                     n,
                     "RTX 3070",
@@ -134,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6800,
                     a,
                     "RX 6800",
@@ -150,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3070ti,
                     n,
                     "RTX 3070 Ti",
@@ -166,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6800xt,
                     a,
                     "RX 6800 XT",
@@ -182,7 +171,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3080,
                     n,
                     "RTX 3080",
@@ -198,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rx6900xt,
                     a,
                     "RX 6900 XT",
@@ -214,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3080ti,
                     n,
                     "RTX 3080 Ti",
@@ -230,7 +219,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             data.add(
-                Gpu(
+                GPU(
                     R.drawable.rtx3090,
                     n,
                     "RTX 3090",
@@ -247,40 +236,42 @@ class MainActivity : AppCompatActivity() {
             )
             fill()
         }
-        val adapter = CustomAdapter(data){ Gpu ->
-            binding.memory.text="VRAM: " + Gpu.memory.toString() + Gpu.vram
-            binding.imageView.setImageResource(Gpu.image)
+        val adapter = CustomAdapter(data){ GPU ->
+            binding.memory.text="VRAM: " + GPU.memory.toString() + " " +  GPU.vram
+            binding.imageView.setImageResource(GPU.image)
         }
         binding.removeSelected.setOnClickListener {
             try {
                 if(data.size>1) {
                     data.removeAt(selected)
                     adapter.notifyDataSetChanged()
+                    selected = min(selected,data.size-1)
                     fill()
                 }
-                if (data.size==1)
-                   binding.removeSelected.isEnabled=false
+                else {
+                    binding.removeSelected.isEnabled = false
+                }
             } catch (e: Exception) {
-                Toast.makeText(this, "You cannot remove the last GPU", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Uh oh.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.recyclerView.adapter=adapter
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
+        d("yo", "save")
         super.onSaveInstanceState(outState)
         outState.putInt(selectedKey,selected)
         outState.putSerializable(savedDataKey, data)
     }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        d("yo", "Restore")
         super.onRestoreInstanceState(savedInstanceState)
         selected=savedInstanceState.getInt(selectedKey)
+        data=savedInstanceState.getSerializable(savedDataKey) as ArrayList<GPU>
+        fill()
     }
     fun fill(){
-        binding.memory.text="VRAM: " + data.get(selected).toString() + " " + data.get(selected).vram
+        binding.memory.text="VRAM: " + data.get(selected).memory.toString() + " " + data.get(selected).vram
         binding.imageView.setImageResource(data[selected].image)
     }
 }
-
-
