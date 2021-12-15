@@ -1,19 +1,17 @@
 package com.ved.gpucomparisonproject
 
-import android.annotation.SuppressLint
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log.d
 import android.util.TypedValue
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
 import com.ved.gpucomparisonproject.databinding.ActivityMainBinding
-import java.lang.Exception
-import java.lang.Integer.min
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 private lateinit var binding: ActivityMainBinding
 
@@ -24,11 +22,14 @@ class MainActivity : AppCompatActivity() {
         var selected: Int = 0
         var data: ArrayList<GPU> = arrayListOf<GPU>()
     }
-    var alertInput:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
+        var counter: Int = 0
         val n = "NVIDIA"
         val a = "AMD"
+        val pH = "PLACEHOLDER"
+        val custom: GPU = GPU(R.drawable.custom,pH,pH,pH,pH,pH,pH,pH,pH,pH,pH,pH)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val context = binding.root.context
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.recyclerView.layoutManager=LinearLayoutManager(this)
@@ -244,26 +245,99 @@ class MainActivity : AppCompatActivity() {
             fill()
         }
         val adapter = CustomAdapter(data){ GPU ->
-            binding.memory.text="VRAM: " + GPU.memory.toString() + " " +  GPU.vram
+            binding.memory.text="VRAM: " + GPU.memory + "GB " +  GPU.vram
             binding.imageView.setImageResource(GPU.image)
         }
-        binding.removeSelected.setOnClickListener {
-            var custom = GPU(R.drawable.custom,n,"RTX 3060","330","12","GDDR6","360","1.32","1.77","170","Ampere","Decent value if on a budget.")
-            alert(binding.root.context,"manufacturer")
-            custom.manufacturer=alertInput
-            alert(binding.root.context,"name")
-            custom.name=alertInput
-            alert(binding.root.context,"price")
-            custom.price=alertInput
-            alert(binding.root.context,"memory")
-            custom.memory=alertInput
-            alert(binding.root.context,"vram")
-            custom.vram=alertInput
-            data.add(custom)
-            adapter.notifyDataSetChanged()
-            fill()
+        fun alertDialog(component: String) {
+            val textInputLayout = TextInputLayout(context)
+            textInputLayout.setPadding(
+                19.dpToPixels().toInt(),
+                0,
+                19.dpToPixels().toInt(),
+                0
+            )
+            val input = EditText(context)
+            input.setPadding(0,55,0,30)
+            textInputLayout.hint = component
+            textInputLayout.addView(input)
+            val alert = AlertDialog.Builder(context)
+                .setTitle("Input $component")
+                .setView(textInputLayout)
+                .setMessage("Please enter the value of ${component.lowercase()} for your custom GPU")
+                .setPositiveButton("Submit") { dialog, _ ->
+                    d("test", counter.toString())
+                    when(counter){
+                        0-> {
+                            custom.manufacturer = input.text.toString()
+                            alertDialog("Name")
+                            counter=1
+                        }
+                        1-> {
+                            custom.name = input.text.toString()
+                            alertDialog("Price")
+                            counter=2
+                        }
+                        2->{
+                            custom.price = input.text.toString()
+                            alertDialog("Memory")
+                            counter=3
+                        }
+                        3->{
+                            custom.memory = input.text.toString()
+                            alertDialog("VRAM")
+                            counter=4
+                        }
+                        4->{
+                            custom.vram = input.text.toString()
+                            alertDialog("Bandwidth")
+                            counter=5
+                        }
+                        5->{
+                            custom.bandwidth = input.text.toString()
+                            alertDialog("Base Clock")
+                            counter=6
+                        }
+                        6->{
+                            custom.baseClock = input.text.toString()
+                            alertDialog("Boost Clock")
+                            counter=7
+                        }
+                        7->{
+                            custom.boostClock = input.text.toString()
+                            alertDialog("TDP")
+                            counter=8
+                        }
+                        8->{
+                            custom.tdp = input.text.toString()
+                            alertDialog("Architecture")
+                            counter=9
+                        }
+                        9->{
+                            custom.architecture = input.text.toString()
+                            alertDialog("Review")
+                            counter=10
+                        }
+                        10->{
+                            custom.review = input.text.toString()
+                            val json = Json.encodeToString(custom)
+                            val customCopy = Json.decodeFromString(json) as GPU
+                            data.add(customCopy)
+                            selected=data.size-1
+                            adapter.notifyDataSetChanged()
+                            fill()
+                            counter=0
+                        }
+                    }
+                    dialog.cancel()
+                }.create()
+            alert.setCanceledOnTouchOutside(false);
+            alert.show()
+        }
+        binding.addGPU.setOnClickListener {
+            alertDialog("Manufacturer")
         }
         binding.recyclerView.adapter=adapter
+
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -276,33 +350,12 @@ class MainActivity : AppCompatActivity() {
         data=savedInstanceState.getSerializable(savedDataKey) as ArrayList<GPU>
         fill()
     }
-    @SuppressLint("SetTextI18n")
     fun fill(){
-        binding.memory.text="VRAM: " + data[selected].memory.toString() + " " + data[selected].vram
+        binding.memory.text="VRAM: " + data[selected].memory + "GB " + data[selected].vram
         binding.imageView.setImageResource(data[selected].image)
-    }
-    private fun alert(context: Context, component: String) {
-        val textInputLayout = TextInputLayout(context)
-        textInputLayout.setPadding(
-            19.dpToPixels().toInt(),
-            0,
-            19.dpToPixels().toInt(),
-            0
-        )
-        val input = EditText(context)
-        textInputLayout.hint = component
-        textInputLayout.addView(input)
 
-        val alert = AlertDialog.Builder(context)
-            .setTitle("Input $component")
-            .setView(textInputLayout)
-            .setMessage("Please enter the value of $component for your custom GPU")
-            .setPositiveButton("Submit") { dialog, _ ->
-                alertInput = input.text.toString()
-                dialog.cancel()
-            }.create()
-        alert.show()
     }
+
     private fun Int.dpToPixels():Float = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),binding.root.context.resources.displayMetrics
     )

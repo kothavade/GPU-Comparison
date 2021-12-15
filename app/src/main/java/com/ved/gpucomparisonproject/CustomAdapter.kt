@@ -1,6 +1,8 @@
 package com.ved.gpucomparisonproject
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Configuration.*
 import android.graphics.Color
 import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
@@ -37,16 +39,19 @@ class CustomAdapter(
                 notifyDataSetChanged()
             }
             if(selected==position) {
-                binding.linearLayout.elevation = 6.dpToPixels(binding.root.context)
+                binding.linearLayout.strokeColor = Color.BLUE
             }
-            else
-                binding.linearLayout.elevation = 3.dpToPixels(binding.root.context)
+            else {
+                //if (binding.root.context.resources.configuration.isNightModeActive)
+                binding.linearLayout.strokeColor = Color.TRANSPARENT
+            }
         }
+
     }
+
     override fun getItemCount(): Int {
         return gpuList.size
     }
-    private fun Int.dpToPixels(context: Context):Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
-    )
+
+
 }

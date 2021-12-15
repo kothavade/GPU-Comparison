@@ -1,4 +1,5 @@
 package com.ved.gpucomparisonproject
+@kotlinx.serialization.Serializable
 data class GPU(
     var image: Int,
     var manufacturer: String,
