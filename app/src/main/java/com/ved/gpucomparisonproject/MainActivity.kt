@@ -322,7 +322,8 @@ class MainActivity : AppCompatActivity() {
                             val json = Json.encodeToString(custom)
                             val customCopy = Json.decodeFromString(json) as GPU
                             data.add(customCopy)
-                            selected=data.size-1
+                            data.sortWith(compareBy { it.price.toDouble() })
+                            selected=data.indexOf(customCopy)
                             adapter.notifyDataSetChanged()
                             fill()
                             counter=0
@@ -353,10 +354,10 @@ class MainActivity : AppCompatActivity() {
     fun fill(){
         binding.memory.text="VRAM: " + data[selected].memory + "GB " + data[selected].vram
         binding.imageView.setImageResource(data[selected].image)
-
     }
 
     private fun Int.dpToPixels():Float = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),binding.root.context.resources.displayMetrics
     )
+
 }
