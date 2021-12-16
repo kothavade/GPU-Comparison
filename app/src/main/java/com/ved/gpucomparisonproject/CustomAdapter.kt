@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ved.gpucomparisonproject.MainActivity.Companion.selected
 import com.ved.gpucomparisonproject.databinding.AdapterCustomBinding
+import java.util.*
 
 class CustomAdapter(
     private val gpuList: List<GPU>,
@@ -26,13 +27,16 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val gpu = gpuList[position]
         with(holder) {
-            binding.adapterManufacturer.text = gpu.manufacturer
-            if (binding.adapterManufacturer.text.equals("NVIDIA"))
-                binding.adapterManufacturer.setTextColor(Color.GREEN)
-            else
-                binding.adapterManufacturer.setTextColor(Color.RED)
-            binding.adapterName.text = gpu.name
-            binding.adapterPrice.text = "$" + gpu.price
+            binding.adapterManufacturer.text = gpu.manufacturer.uppercase()
+            when {
+                (binding.adapterManufacturer.text as String).equals("NVIDIA",true) -> binding.adapterManufacturer.setTextColor(Color.GREEN)
+                (binding.adapterManufacturer.text as String).equals("AMD",true) -> binding.adapterManufacturer.setTextColor(Color.RED)
+                (binding.adapterManufacturer.text as String).equals("Intel",true) -> binding.adapterManufacturer.setTextColor(Color.BLUE)
+                else -> binding.adapterManufacturer.setTextColor(Color.CYAN)
+            }
+
+            binding.adapterName.text = gpu.name.uppercase()
+            binding.adapterPrice.text = "$${gpu.price}"
             itemView.setOnClickListener {
                 listener(gpu)
                 selected=position

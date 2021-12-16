@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/adapter_name"
-            android:layout_width="138dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="RTX 3070Ti"

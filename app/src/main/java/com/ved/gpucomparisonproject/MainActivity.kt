@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log.d
 import android.util.TypedValue
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -266,6 +267,11 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("Please enter the value of ${component.lowercase()} for your custom GPU")
                 .setPositiveButton("Submit") { dialog, _ ->
                     d("test", counter.toString())
+                    if(input.text.toString().trim().isEmpty()){
+                        input.requestFocus()
+                        Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_SHORT).show()
+
+                    }
                     when(counter){
                         0-> {
                             custom.manufacturer = input.text.toString()
@@ -319,8 +325,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         10->{
                             custom.review = input.text.toString()
-                            val json = Json.encodeToString(custom)
-                            val customCopy = Json.decodeFromString(json) as GPU
+                            val customCopy = custom.copy()
                             data.add(customCopy)
                             data.sortWith(compareBy { it.price.toDouble() })
                             selected=data.indexOf(customCopy)
