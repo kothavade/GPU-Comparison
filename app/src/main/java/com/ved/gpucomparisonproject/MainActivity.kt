@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     "1.77",
                     "170",
                     "Ampere",
-                    "Decent value if on a budget."
+                    "Decent value if on a budget. Lots of VRAM for the price."
                 )
             )
             data.add(
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     "2.49",
                     "132",
                     "RDNA2",
-                    "Worse alternative to 3060 for the same price."
+                    "Worse alternative to 3060 for the same price. Would not buy unless a better alternative not availible."
                 )
             )
             data.add(
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     "2.59",
                     "160",
                     "RDNA2",
-                    "Mid/Bad alternative to 3060Ti for less money."
+                    "Mid/Bad alternative to 3060Ti for less money. Buy over a 6600, but not over a 3060 or 3060Ti."
                 )
             )
             data.add(
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     "1.66",
                     "200",
                     "Ampere",
-                    "Best value this generation, buy if you can afford."
+                    "Best value this generation. Performance for price is better than 3070, 3060, and all AMD GPUS."
                 )
             )
             data.add(
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     "2.58",
                     "230",
                     "RDNA2",
-                    "Marginally better than 3060Ti, not worth."
+                    "Marginally better than 3060Ti, not worth. Save money and buy 3060Ti or save and buy 3070."
                 )
             )
             data.add(
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                     "1.73",
                     "220",
                     "Ampere",
-                    "Marginally better than 3060Ti, not worth."
+                    "Marginally better than 3060Ti, not worth. Buy if willing to pay 25% more for 10% performance only."
                 )
             )
             data.add(
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                     "2.10",
                     "250",
                     "RDNA2",
-                    "Decent choice in-between 3070 and 3080, worth the price."
+                    "Decent choice in-between 3070 and 3080, worth the price. Generally recommend saving for 3080 instead. "
                 )
             )
             data.add(
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                     "1.77",
                     "290",
                     "Ampere",
-                    "Bad value, buy 3060Ti or 3080."
+                    "Bad value, buy 3060Ti or 3080. Only exists to capitalize on supply shortages."
                 )
             )
             data.add(
@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                     "2.25",
                     "300",
                     "RDNA2",
-                    "Great alternative to 3080, great deal. "
+                    "Great alternative to 3080, great deal. Buy if willing to save money at the cost of RT performance and DLSS."
                 )
             )
             data.add(
@@ -192,7 +192,7 @@ class MainActivity : AppCompatActivity() {
                     "1.71",
                     "320",
                     "Ampere",
-                    "Great value for high performance. Second best value this generation."
+                    "Great value for high performance. Second best value this generation, buy if you can afford it."
                 )
             )
             data.add(
@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity() {
                     "2.25",
                     "300",
                     "RDNA2",
-                    "Performs well if you have money to burn, generally not worth it."
+                    "Performs well if you have money to burn, generally not worth it, as 3080 is similar in performance for far less."
                 )
             )
             data.add(
@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity() {
                     "1.66",
                     "350",
                     "Ampere",
-                    "Horrible deal, buy 3080"
+                    "Horrible deal, buy a 3080 instead. Only exists to capitalize on supply shortages."
                 )
             )
             data.add(
@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
                     "1.69",
                     "350",
                     "Ampere",
-                    "Only buy if you need VRAM for GFX"
+                    "Only buy if you need VRAM for profession work. For gaming, 3080 is more or less the same for half the price."
                 )
             )
             fill()
