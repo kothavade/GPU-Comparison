@@ -51,49 +51,44 @@
             android:id="@+id/memory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="mem" />
+            android:text="mem"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/bandwidth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="bw" />
+            android:text="bw"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/baseClock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/boostClock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/architecture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:text="TextView" />
     </LinearLayout>
 
     <Button
@@ -102,7 +97,7 @@
         android:layout_height="121dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:text="Button"
+        android:text="Add Custom GPU"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"

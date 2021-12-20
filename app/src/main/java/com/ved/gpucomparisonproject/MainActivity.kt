@@ -1,5 +1,6 @@
 package com.ved.gpucomparisonproject
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log.d
 import android.util.TypedValue
@@ -10,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
 import com.ved.gpucomparisonproject.databinding.ActivityMainBinding
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 private lateinit var binding: ActivityMainBinding
 
@@ -246,7 +244,16 @@ class MainActivity : AppCompatActivity() {
             fill()
         }
         val adapter = CustomAdapter(data){ GPU ->
-            binding.memory.text="VRAM: " + GPU.memory + "GB " +  GPU.vram
+
+            binding.memory.text="VRAM: ${GPU.memory}GB ${GPU.vram}"
+            binding.bandwidth.text="Bandwidth: ${GPU.bandwidth} GB/s"
+            binding.baseClock.text="Base Clock: ${GPU.baseClock} GHz"
+            binding.boostClock.text="Base Clock: ${GPU.boostClock} GHz"
+            binding.tdp.text="TDP: ${GPU.tdp}W"
+            binding.architecture.text="Architecture: ${GPU.architecture}"
+            if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                binding.review!!.text ="Review: ${GPU.review}"
+            }
             binding.imageView.setImageResource(GPU.image)
         }
         fun alertDialog(component: String) {
@@ -357,7 +364,15 @@ class MainActivity : AppCompatActivity() {
         fill()
     }
     fun fill(){
-        binding.memory.text="VRAM: " + data[selected].memory + "GB " + data[selected].vram
+        binding.memory.text="VRAM: ${data[selected].memory}GB ${data[selected].vram}"
+        binding.bandwidth.text="Bandwidth: ${data[selected].bandwidth} GB/s"
+        binding.baseClock.text="Base Clock: ${data[selected].baseClock} GHz"
+        binding.boostClock.text="Base Clock: ${data[selected].boostClock} GHz"
+        binding.tdp.text="TDP: ${data[selected].tdp}W"
+        binding.architecture.text="Architecture: ${data[selected].architecture}"
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            binding.review!!.text ="Review: ${data[selected].review}"
+        }
         binding.imageView.setImageResource(data[selected].image)
     }
 
