@@ -246,7 +246,6 @@ class MainActivity : AppCompatActivity() {
             fill()
         }
         val adapter = CustomAdapter(data){ GPU ->
-
             binding.memory.text="VRAM: ${GPU.memory}GB ${GPU.vram}"
             binding.bandwidth.text="Bandwidth: ${GPU.bandwidth} GB/s"
             binding.baseClock.text="Base Clock: ${GPU.baseClock} GHz"
@@ -400,7 +399,13 @@ class MainActivity : AppCompatActivity() {
                         10->{
                             if (input.text.toString().isNotEmpty()) {
                                 custom.review = input.text.toString()
-                                counter=-1
+                                val customCopy = custom.copy()
+                                data.add(customCopy)
+                                data.sortWith(compareBy { it.price.toDouble() })
+                                selected=data.indexOf(customCopy)
+                                adapter.notifyDataSetChanged()
+                                fill()
+                                counter=0
                             }
                             else{
                                 alertDialog("Review")
@@ -408,15 +413,6 @@ class MainActivity : AppCompatActivity() {
                                 counter=10
                             }
 
-                        }
-                        else->{
-                            val customCopy = custom.copy()
-                            data.add(customCopy)
-                            data.sortWith(compareBy { it.price.toDouble() })
-                            selected=data.indexOf(customCopy)
-                            adapter.notifyDataSetChanged()
-                            fill()
-                            counter=0
                         }
                     }
                     dialog.cancel()
