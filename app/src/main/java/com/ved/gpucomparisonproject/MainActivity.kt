@@ -1,9 +1,12 @@
 package com.ved.gpucomparisonproject
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log.d
 import android.util.TypedValue
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -274,64 +277,140 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("Please enter the value of ${component.lowercase()} for your custom GPU")
                 .setPositiveButton("Submit") { dialog, _ ->
                     d("test", counter.toString())
-                    if(input.text.toString().trim().isEmpty()){
-                        input.requestFocus()
-                        Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_SHORT).show()
-
-                    }
                     when(counter){
                         0-> {
-                            custom.manufacturer = input.text.toString()
-                            alertDialog("Name")
-                            counter=1
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.manufacturer = input.text.toString()
+                                alertDialog("Name")
+                                counter=1
+                            }
+                            else{
+                                alertDialog("Manufacturer")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=0
+                            }
                         }
                         1-> {
-                            custom.name = input.text.toString()
-                            alertDialog("Price")
-                            counter=2
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.name = input.text.toString()
+                                alertDialog("Price")
+                                counter=2
+                            }
+                            else{
+                                alertDialog("Name")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=1
+                            }
                         }
                         2->{
-                            custom.price = input.text.toString()
-                            alertDialog("Memory")
-                            counter=3
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.price = input.text.toString()
+                                alertDialog("Memory")
+                                counter=3
+                            }
+                            else{
+                                alertDialog("Price")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=2
+                            }
                         }
                         3->{
-                            custom.memory = input.text.toString()
-                            alertDialog("VRAM")
-                            counter=4
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.memory = input.text.toString()
+                                alertDialog("VRAM")
+                                counter=4
+                            }
+                            else{
+                                alertDialog("Memory")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=3
+                            }
                         }
                         4->{
-                            custom.vram = input.text.toString()
-                            alertDialog("Bandwidth")
-                            counter=5
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.vram = input.text.toString()
+                                alertDialog("Bandwidth")
+                                counter=5
+                            }
+                            else{
+                                alertDialog("VRAM")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=4
+                            }
                         }
                         5->{
-                            custom.bandwidth = input.text.toString()
-                            alertDialog("Base Clock")
-                            counter=6
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.bandwidth = input.text.toString()
+                                alertDialog("Base Clock")
+                                counter=6
+                            }
+                            else{
+                                alertDialog("Bandwidth")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=5
+                            }
                         }
                         6->{
-                            custom.baseClock = input.text.toString()
-                            alertDialog("Boost Clock")
-                            counter=7
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.baseClock = input.text.toString()
+                                alertDialog("Boost Clock")
+                                counter=7
+                            }
+                            else{
+                                alertDialog("Base Clock")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=6
+                            }
                         }
                         7->{
-                            custom.boostClock = input.text.toString()
-                            alertDialog("TDP")
-                            counter=8
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.boostClock = input.text.toString()
+                                alertDialog("TDP")
+                                counter=8
+                            }
+                            else{
+                                alertDialog("Boost Clock")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=7
+                            }
                         }
                         8->{
-                            custom.tdp = input.text.toString()
-                            alertDialog("Architecture")
-                            counter=9
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.tdp = input.text.toString()
+                                alertDialog("Architecture")
+                                counter=9
+                            }
+                            else{
+                                alertDialog("TDP")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=8
+                            }
                         }
                         9->{
-                            custom.architecture = input.text.toString()
-                            alertDialog("Review")
-                            counter=10
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.architecture = input.text.toString()
+                                alertDialog("Review")
+                                counter=10
+                            }
+                            else{
+                                alertDialog("Architecture")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=9
+                            }
                         }
                         10->{
-                            custom.review = input.text.toString()
+                            if (input.text.toString().isNotEmpty()) {
+                                custom.review = input.text.toString()
+                                counter=-1
+                            }
+                            else{
+                                alertDialog("Review")
+                                Toast.makeText(context,"Please enter a value for $component",Toast.LENGTH_LONG).show()
+                                counter=10
+                            }
+
+                        }
+                        else->{
                             val customCopy = custom.copy()
                             data.add(customCopy)
                             data.sortWith(compareBy { it.price.toDouble() })
@@ -343,6 +422,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     dialog.cancel()
                 }.create()
+            input.requestFocus()
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT)
             alert.setCanceledOnTouchOutside(false);
             alert.show()
         }
