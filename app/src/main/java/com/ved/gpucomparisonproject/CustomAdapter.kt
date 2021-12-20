@@ -1,17 +1,12 @@
 package com.ved.gpucomparisonproject
 
-import android.content.Context
-import android.content.res.Configuration
-import android.content.res.Configuration.*
 import android.graphics.Color
-import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ved.gpucomparisonproject.MainActivity.Companion.selected
 import com.ved.gpucomparisonproject.databinding.AdapterCustomBinding
-import java.util.*
 
 class CustomAdapter(
     private val gpuList: List<GPU>,
@@ -46,16 +41,11 @@ class CustomAdapter(
                 binding.linearLayout.strokeColor = Color.BLUE
             }
             else {
-                //if (binding.root.context.resources.configuration.isNightModeActive)
                 binding.linearLayout.strokeColor = Color.TRANSPARENT
             }
         }
-
     }
-
     override fun getItemCount(): Int {
         return gpuList.size
     }
-
-
 }
