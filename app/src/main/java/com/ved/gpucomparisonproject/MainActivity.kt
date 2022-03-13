@@ -252,9 +252,9 @@ class MainActivity : AppCompatActivity() {
             binding.boostClock.text="Base Clock: ${GPU.boostClock} GHz"
             binding.tdp.text="TDP: ${GPU.tdp}W"
             binding.architecture.text="Architecture: ${GPU.architecture}"
-            if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                binding.review!!.text ="Review: ${GPU.review}"
-            }
+            //if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                binding.review.text ="Review: ${GPU.review}"
+            //}
             binding.imageView.setImageResource(GPU.image)
         }
         fun alertDialog(component: String) {
@@ -447,9 +447,9 @@ class MainActivity : AppCompatActivity() {
         binding.boostClock.text="Base Clock: ${data[selected].boostClock} GHz"
         binding.tdp.text="TDP: ${data[selected].tdp}W"
         binding.architecture.text="Architecture: ${data[selected].architecture}"
-        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            binding.review!!.text ="Review: ${data[selected].review}"
-        }
+        //if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            binding.review.text ="Review: ${data[selected].review}"
+        //}
         binding.imageView.setImageResource(data[selected].image)
     }
 
